@@ -9,7 +9,8 @@ const JobSchema = new mongoose.Schema({
     enum: ['Applied', 'Interview', 'Offer', 'Rejected'],
     default: 'Applied'
   },
-  notes: { type: String }
+  notes: { type: String },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // Added userId
 }, { timestamps: true });
 
 module.exports = mongoose.model('Job', JobSchema);

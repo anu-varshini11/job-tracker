@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Job = require('../models/Job');
 const { body, validationResult } = require('express-validator');
+const protect = require('../middleware/auth');
 
 // Validation middleware
 const validateJob = [
@@ -20,9 +21,9 @@ const validateJob = [
 ];
 
 // Create a job
-router.post('/', validateJob, async (req, res) => {
+router.post('/', protect, validateJob, async (req, res) => {
   try {
-    const job = new Job(req.body);
+    const job = new Job({ ...req.body, userId: req.user._id });
     await job.save();
     res.status(201).json(job);
   } catch (err) {
@@ -30,11 +31,11 @@ router.post('/', validateJob, async (req, res) => {
   }
 });
 
-// Get all jobs (optional filtering by status ?status=Interview)
-router.get('/', async (req, res) => {
-  const filter = {};
-  if (req.query.status) filter.status = req.query.status;
+// Get all jobs (with optional filtering)
+router.get('/', protect, async (req, res) => {
   try {
+    const filter = { userId: req.user._id };
+    if (req.query.status) filter.status = req.query.status;
     const jobs = await Job.find(filter).sort({ applicationDate: -1 });
     res.json(jobs);
   } catch (err) {
@@ -43,9 +44,9 @@ router.get('/', async (req, res) => {
 });
 
 // Get single job
-router.get('/:id', async (req, res) => {
+router.get('/:id', protect, async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id);
+    const job = await Job.findOne({ _id: req.params.id, userId: req.user._id });
     if (!job) return res.status(404).json({ error: 'Job not found' });
     res.json(job);
   } catch (err) {
@@ -54,9 +55,13 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update job
-router.put('/:id', validateJob, async (req, res) => {
+router.put('/:id', protect, validateJob, async (req, res) => {
   try {
-    const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const job = await Job.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user._id },
+      req.body,
+      { new: true, runValidators: true }
+    );
     if (!job) return res.status(404).json({ error: 'Job not found' });
     res.json(job);
   } catch (err) {
@@ -65,9 +70,9 @@ router.put('/:id', validateJob, async (req, res) => {
 });
 
 // Delete job
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', protect, async (req, res) => {
   try {
-    const job = await Job.findByIdAndDelete(req.params.id);
+    const job = await Job.findOneAndDelete({ _id: req.params.id, userId: req.user._id });
     if (!job) return res.status(404).json({ error: 'Job not found' });
     res.json({ message: 'Job deleted successfully' });
   } catch (err) {

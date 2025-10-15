@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getJobs, deleteJob } from '../api';
 
 function Home() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('All');
+  const navigate = useNavigate();
 
   const fetchJobs = async (status) => {
     try {
-      const query = status && status !== 'All' ? `?status=${status}` : '';
-      const data = await getJobs(query); // pass query to API
+      const query = status && status !== 'All' ? status : '';
+      const data = await getJobs(query);
       setJobs(data);
       setLoading(false);
     } catch (err) {
@@ -30,6 +31,11 @@ function Home() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   useEffect(() => {
     fetchJobs(filter);
   }, [filter]);
@@ -43,6 +49,7 @@ function Home() {
   return (
     <div>
       <h2>Job Applications</h2>
+      <button onClick={handleLogout}>Logout</button>
       <Link to="/add"><button>Add New Job</button></Link>
 
       <div style={{ margin: '10px 0' }}>
