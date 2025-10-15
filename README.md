@@ -62,8 +62,9 @@ Server runs on http://localhost:5000
 
 Frontend runs on http://localhost:3000 and communicates with backend API.
 
-API Endpoints
+### API Endpoints
 
+```bash
 GET /api/jobs — Fetch all jobs (supports optional ?status= filter)
 
 POST /api/jobs — Add a new job
@@ -73,6 +74,7 @@ PUT /api/jobs/:id — Update an existing job
 DELETE /api/jobs/:id — Delete a job
 
 GET /api/jobs/:id — Fetch single job details
+```
 
-Author
+Author <br>
 Anu Varshini M B
