@@ -19,10 +19,12 @@ A full-stack MERN application to manage and track job applications with CRUD ope
 
 ## Project Structure
 
+```bash
 job-tracker/
 ├── backend/ # Node + Express backend
 ├── frontend/ # React frontend
 └── README.md
+```
 
 
 ## Setup Instructions (Local)
@@ -33,23 +35,29 @@ job-tracker/
    ```bash
    cd backend
 2. Install dependencies:
+    ```bash
     npm install
 3. Create .env file with:
+    ```bash
     MONGO_URI=<your-mongodb-connection-string>
     PORT=5000
 4. Start the server:
+    ```bash
     node server.js
 
 Server runs on http://localhost:5000
 
 ### Frontend
 1. Navigate to frontend folder:
+    ```bash
     cd frontend
 
 2. Install dependencies:
+    ```bash
     npm install
 
 3. Start the frontend:
+    ```bash
     npm start
 
 Frontend runs on http://localhost:3000 and communicates with backend API.
