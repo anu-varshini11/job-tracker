@@ -76,5 +76,20 @@ DELETE /api/jobs/:id — Delete a job
 GET /api/jobs/:id — Fetch single job details
 ```
 
+### Authentication
+```bash
+Sign Up: New users can create an account with a unique username and password.
+
+Login: Existing users can log in and receive a JWT token for secure access.
+
+Protected Routes: Only authenticated users can access their job applications.
+
+User-specific Data: Each user can only see and manage their own job applications.
+
+Password Security: Passwords are hashed using bcrypt before storing in the database.
+
+JWT Expiration: Tokens expire after 1 hour for added security.
+```
+
 Author <br>
 Anu Varshini M B
