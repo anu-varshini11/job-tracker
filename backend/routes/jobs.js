@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Job = require('../models/Job');
 const { body, validationResult } = require('express-validator');
-const protect = require('../middleware/auth');
+const protect = require('./auth'); // ✅ updated path
 
 // Validation middleware
 const validateJob = [
