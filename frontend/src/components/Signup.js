@@ -11,9 +11,8 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await signupUser(username, password);
-      localStorage.setItem('token', data.token); // optional: auto-login after signup
-      navigate('/'); // go to Home
+      await signupUser(username, password);
+      navigate('/login'); // redirect to login
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
     }
