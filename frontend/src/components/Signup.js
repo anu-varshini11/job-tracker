@@ -11,7 +11,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/auth/register', { username, password });
+      await axios.post('process.env.REACT_APP_API_BASE_URL', { username, password });
       navigate('/login'); // redirect to login
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
