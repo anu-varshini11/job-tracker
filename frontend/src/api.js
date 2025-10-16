@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: `${process.env.REACT_APP_API_BASE_URL}/api/jobs`,
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://job-tracker-backend-y9b3.onrender.com',
 });
 
 // Automatically include JWT token in request headers
@@ -14,7 +14,7 @@ API.interceptors.request.use((config) => {
 });
 
 export const getJobs = async (query = '') => {
-  const res = await API.get(query ? `?status=${query}` : '/');
+  const res = await API.get(query ? `/?status=${query}` : '/');
   return res.data;
 };
 
