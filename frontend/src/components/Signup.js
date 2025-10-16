@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { signupUser } from '../api';
 
 function Signup() {
   const [username, setUsername] = useState('');
@@ -11,11 +11,9 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/auth/register`,
-        { username, password }
-      );
-      navigate('/login'); // redirect to login
+      const data = await signupUser(username, password);
+      localStorage.setItem('token', data.token); // optional: auto-login after signup
+      navigate('/'); // go to Home
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
     }
