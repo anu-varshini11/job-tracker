@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -8,15 +8,14 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const API_BASE = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, {
-        username,
-        password,
-      });
+      const res = await axios.post(`${API_BASE}/api/auth/login`, { username, password });
       localStorage.setItem('token', res.data.token);
-      navigate('/'); // redirect to Home
+      navigate('/'); // go to Home
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     }

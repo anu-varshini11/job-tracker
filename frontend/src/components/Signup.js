@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Signup() {
   const [username, setUsername] = useState('');
@@ -8,13 +8,12 @@ function Signup() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const API_BASE = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`, {
-        username,
-        password,
-      });
+      await axios.post(`${API_BASE}/api/auth/register`, { username, password });
       navigate('/login'); // redirect to login
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
