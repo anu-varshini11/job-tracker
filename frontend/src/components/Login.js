@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginUser } from '../api';
+import { loginUser } from '../api'; // import our API helper
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -11,8 +11,8 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await loginUser(username, password);
-      localStorage.setItem('token', data.token);
+      const res = await loginUser(username, password); // use API helper
+      localStorage.setItem('token', res.token);
       navigate('/'); // go to Home
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { signupUser } from '../api';
+import { signupUser } from '../api'; // import our API helper
 
 function Signup() {
   const [username, setUsername] = useState('');
@@ -11,7 +11,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signupUser(username, password);
+      await signupUser(username, password); // use API helper
       navigate('/login'); // redirect to login
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
