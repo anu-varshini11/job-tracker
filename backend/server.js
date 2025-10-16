@@ -7,9 +7,9 @@ const jobsRouter = require('./routes/jobs');
 
 const app = express();
 
-// Replace * with your Netlify frontend URL
+// Enable CORS for frontend
 app.use(cors({
-  origin: process.env.FRONTEND_URL, // <-- frontend URL
+  origin: process.env.FRONTEND_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
