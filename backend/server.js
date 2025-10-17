@@ -1,28 +1,24 @@
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
-const connectDB = require('./config/db');
+
 const authRoutes = require('./routes/auth');
-const jobsRouter = require('./routes/jobs');
+const jobRoutes = require('./routes/jobs');
 
 const app = express();
-
-// Enable CORS for frontend
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
-
+app.use(cors());
 app.use(express.json());
+
 app.use('/api/auth', authRoutes);
-app.use('/api/jobs', jobsRouter);
+app.use('/api/jobs', jobRoutes);
 
-connectDB();
+const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-  res.send('Backend is running');
-});
-
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('MongoDB connected');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => console.error('MongoDB connection error:', err));

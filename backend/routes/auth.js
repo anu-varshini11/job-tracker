@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
 
     const user = new User({
       username,
-      password // hashing is done in pre-save hook
+      password 
     });
     await user.save();
 
