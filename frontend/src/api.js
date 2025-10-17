@@ -10,7 +10,7 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-export default API; // default export
+export default API; 
 
 export const getJobs = async (query = '') => {
   const res = await API.get(query ? `/jobs?status=${query}` : '/jobs');
