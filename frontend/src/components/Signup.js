@@ -9,14 +9,15 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await signupUser(username, password); // use API helper
-      navigate('/login'); // redirect to login
-    } catch (err) {
-      setError(err.response?.data?.error || 'Signup failed');
-    }
-  };
+  e.preventDefault();
+  try {
+    const res = await signupUser(username, password);
+    localStorage.setItem('token', res.token); // ✅ Save token directly
+    navigate('/'); // ✅ Take user inside immediately
+  } catch (err) {
+    setError(err.response?.data?.error || 'Signup failed');
+  }
+};
 
   return (
     <div>
