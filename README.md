@@ -1,95 +1,147 @@
 # Job Application Tracker (MERN Stack)
 
-A full-stack MERN application to manage and track job applications with CRUD operations, status filtering, and detailed views.
+A full-stack MERN (MongoDB, Express, React, Node.js) application that helps users **track and manage job applications** efficiently — with secure authentication, CRUD operations, and filtering options.
+
+---
 
 ## Features
 
-- Add, Edit, Delete, and View job applications
-- Filter jobs by status: Applied, Interview, Offer, Rejected
-- Frontend and backend input validation
-- Clean and responsive UI
-- MongoDB Atlas integration for cloud database storage
+**Add, Edit, Delete, and View** job applications  
+**Filter by Status** — Applied / Interview / Offer / Rejected  
+**Frontend + Backend validation** for all inputs  
+**JWT Authentication** (Sign Up & Login)  
+**User-specific data** — each user only sees their own jobs  
+**Responsive UI** with personalized greeting  
+**Clean folder structure** and production-ready code  
+
+---
 
 ## Tech Stack
 
-- **Frontend:** React (functional components + hooks)
-- **Backend:** Node.js, Express
-- **Database:** MongoDB (Mongoose)
-- **Styling:** CSS
+| Layer | Technology |
+|--------|-------------|
+| **Frontend** | React (Functional Components + Hooks) |
+| **Backend** | Node.js + Express |
+| **Database** | MongoDB (Mongoose ORM) |
+| **Auth** | JWT + bcrypt |
+| **Styling** | CSS |
+
+---
 
 ## Project Structure
 
 ```bash
 job-tracker/
-├── backend/ # Node + Express backend
-├── frontend/ # React frontend
+├── backend/        # Node.js + Express API
+│   ├── models/     # Mongoose Schemas
+│   ├── routes/     # API Routes
+│   ├── controllers/# CRUD logic
+│   ├── server.js   # Entry point
+│   └── .env        # Environment variables
+│
+├── frontend/       # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── api.js
+│   │   └── App.js
+│   └── package.json
+│
 └── README.md
 ```
-
-
-## Setup Instructions (Local)
-
-### Backend
+## Setup Instructions (Run Locally)
+## Backend Setup
 
 1. Navigate to backend folder:
-   ```bash
-   cd backend
-2. Install dependencies:
-    ```bash
-    npm install
-3. Create .env file with:
-    ```bash
-    MONGO_URI=<your-mongodb-connection-string>
-    PORT=5000
-4. Start the server:
-    ```bash
-    node server.js
 
+```bash
+cd backend
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create .env file:
+
+```bash
+MONGO_URI=<your-mongodb-connection-string>
+JWT_SECRET=<any-random-secret-key>
+PORT=5000
+```
+
+4. Run the backend server:
+
+```bash
+node server.js
+```
 Server runs on http://localhost:5000
 
-### Frontend
+## Frontend Setup
+
 1. Navigate to frontend folder:
-    ```bash
-    cd frontend
+
+```bash
+cd frontend
+```
 
 2. Install dependencies:
-    ```bash
-    npm install
-
-3. Start the frontend:
-    ```bash
-    npm start
-
-Frontend runs on http://localhost:3000 and communicates with backend API.
-
-### API Endpoints
 
 ```bash
-GET /api/jobs — Fetch all jobs (supports optional ?status= filter)
-
-POST /api/jobs — Add a new job
-
-PUT /api/jobs/:id — Update an existing job
-
-DELETE /api/jobs/:id — Delete a job
-
-GET /api/jobs/:id — Fetch single job details
+npm install
 ```
 
-### Authentication
+3. Start the React app:
+
 ```bash
-Sign Up: New users can create an account with a unique username and password.
-
-Login: Existing users can log in and receive a JWT token for secure access.
-
-Protected Routes: Only authenticated users can access their job applications.
-
-User-specific Data: Each user can only see and manage their own job applications.
-
-Password Security: Passwords are hashed using bcrypt before storing in the database.
-
-JWT Expiration: Tokens expire after 1 hour for added security.
+npm start
 ```
 
-Author <br>
+App runs on http://localhost:3000
+
+## API Endpoints
+
+| **Method** | **Endpoint**        | **Description** |
+|-------------|--------------------|-----------------|
+| **POST**    | `/api/auth/signup` | Register a new user |
+| **POST**    | `/api/auth/login`  | Authenticate existing user |
+| **GET**     | `/api/jobs`        | Get all jobs (optional `?status=` filter) |
+| **POST**    | `/api/jobs`        | Add a new job |
+| **GET**     | `/api/jobs/:id`    | Get details of a specific job |
+| **PUT**     | `/api/jobs/:id`    | Update an existing job |
+| **DELETE**  | `/api/jobs/:id`    | Delete a job |
+
+## Authentication Overview
+
+Sign Up: Users register with a unique username & password.
+
+Login: On login, users receive a JWT token stored in localStorage.
+
+Protected Routes: API endpoints require valid tokens.
+
+Password Security: All passwords are hashed using bcrypt.
+
+JWT Expiration: Tokens expire after 1 hour for added safety.
+
+## Validation Rules
+
+| **Field** | **Rule** |
+|------------|----------|
+| **Company Name** | Required, minimum 3 characters |
+| **Job Title** | Required |
+| **Application Date** | Required, cannot be a future date |
+| **Status** | Must be one of: Applied, Interview, Offer, Rejected |
+
+## Optional Enhancements
+
+Status-based filtering implemented
+
+Improved card-based UI with greeting
+
+Ready for deployment on Netlify + Render
+
+Author
+
 Anu Varshini M B
