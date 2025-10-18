@@ -13,7 +13,6 @@ function AddJob() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Frontend validation
     if (companyName.length < 3) {
       setError('Company Name must be at least 3 characters');
       return;
@@ -29,40 +28,28 @@ function AddJob() {
 
     try {
       await createJob({ companyName, jobTitle, applicationDate, status });
-      navigate('/'); // redirect to home page
-    } catch (err) {
+      navigate('/');
+    } catch {
       setError('Failed to add job. Try again.');
     }
   };
 
   return (
-    <div>
+    <div className="card" style={{ maxWidth: '500px', margin: '20px auto' }}>
       <h2>Add New Job</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Company Name:</label>
-          <input
-            type="text"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-          />
+          <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
         </div>
         <div>
           <label>Job Title:</label>
-          <input
-            type="text"
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
-          />
+          <input type="text" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
         </div>
         <div>
           <label>Application Date:</label>
-          <input
-            type="date"
-            value={applicationDate}
-            onChange={(e) => setApplicationDate(e.target.value)}
-          />
+          <input type="date" value={applicationDate} onChange={(e) => setApplicationDate(e.target.value)} />
         </div>
         <div>
           <label>Status:</label>
@@ -73,7 +60,7 @@ function AddJob() {
             <option value="Rejected">Rejected</option>
           </select>
         </div>
-        <button type="submit">Add Job</button>
+        <button type="submit" style={{ width: '100%', marginTop: '10px' }}>Add Job</button>
       </form>
     </div>
   );

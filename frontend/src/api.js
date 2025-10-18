@@ -10,7 +10,7 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-export default API; 
+export default API;
 
 export const getJobs = async (query = '') => {
   const res = await API.get(query ? `/jobs?status=${query}` : '/jobs');
@@ -32,8 +32,8 @@ export const deleteJob = async (id) => {
   return res.data;
 };
 
-export const signupUser = async (username, password) => {
-  const res = await API.post('/auth/register', { username, password });
+export const signupUser = async (name, username, password) => {
+  const res = await API.post('/auth/register', { name, username, password });
   return res.data;
 };
 

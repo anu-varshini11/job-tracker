@@ -19,11 +19,11 @@ function EditJob() {
         if (job) {
           setCompanyName(job.companyName);
           setJobTitle(job.jobTitle);
-          setApplicationDate(job.applicationDate.split('T')[0]); // format yyyy-mm-dd
+          setApplicationDate(job.applicationDate.split('T')[0]);
           setStatus(job.status);
         }
       } catch (err) {
-        console.error('Failed to fetch job:', err);
+        console.error(err);
       }
     };
     fetchJob();
@@ -45,43 +45,30 @@ function EditJob() {
       return;
     }
 
-    setError('');
     try {
       await updateJob(id, { companyName, jobTitle, applicationDate, status });
-      navigate('/'); // redirect to home after update
-    } catch (err) {
+      navigate('/');
+    } catch {
       setError('Failed to update job. Try again.');
     }
   };
 
   return (
-    <div>
+    <div className="card" style={{ maxWidth: '500px', margin: '20px auto' }}>
       <h2>Edit Job</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Company Name:</label>
-          <input
-            type="text"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-          />
+          <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
         </div>
         <div>
           <label>Job Title:</label>
-          <input
-            type="text"
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
-          />
+          <input type="text" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
         </div>
         <div>
           <label>Application Date:</label>
-          <input
-            type="date"
-            value={applicationDate}
-            onChange={(e) => setApplicationDate(e.target.value)}
-          />
+          <input type="date" value={applicationDate} onChange={(e) => setApplicationDate(e.target.value)} />
         </div>
         <div>
           <label>Status:</label>
@@ -92,7 +79,7 @@ function EditJob() {
             <option value="Rejected">Rejected</option>
           </select>
         </div>
-        <button type="submit">Update Job</button>
+        <button type="submit" style={{ width: '100%', marginTop: '10px' }}>Update Job</button>
       </form>
     </div>
   );

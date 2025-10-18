@@ -2,85 +2,119 @@
 
 /* General body */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
   margin: 0;
   padding: 20px;
+  color: #333;
 }
 
-/* Container */
-div {
+/* Container cards */
+div.card {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 20px auto;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 /* Headings */
 h2 {
   text-align: center;
-  color: #333;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
 }
 
 /* Buttons */
 button {
-  margin: 3px;
-  padding: 6px 12px;
+  margin: 5px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   color: #fff;
   background-color: #007bff;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
+/* Logout button */
+button.logout {
+  background-color: #e74c3c;
+}
+
+button.logout:hover {
+  background-color: #c0392b;
+}
+
 /* Table */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 table th, table td {
-  padding: 10px;
+  padding: 12px 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
+}
+
+table th {
+  background-color: #007bff;
+  color: #fff;
+  text-transform: uppercase;
 }
 
 /* Forms */
 form div {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 form label {
-  display: inline-block;
-  width: 150px;
-  font-weight: bold;
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 form input, form select {
-  padding: 6px 10px;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  width: 200px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
 }
 
-form button {
-  margin-left: 150px;
+form input:focus, form select:focus {
+  outline: none;
+  border-color: #007bff;
 }
 
 /* Error messages */
-p[style*="color: red"] {
-  margin-left: 150px;
+p.error {
+  color: #e74c3c;
   font-weight: bold;
 }
+
+/* Greeting */
+h2.greeting {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #34495e;
+  text-align: center;
+}
+
