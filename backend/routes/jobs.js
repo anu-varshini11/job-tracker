@@ -22,11 +22,14 @@ const validateJob = [
 
 // Create a job
 router.post('/', protect, validateJob, async (req, res) => {
+  console.log('REQ USER:', req.user);
+  console.log('REQ BODY:', req.body);
   try {
     const job = new Job({ ...req.body, userId: req.user._id });
     await job.save();
     res.status(201).json(job);
   } catch (err) {
+    console.error('Add job error:', err);
     res.status(500).json({ error: 'Server error' });
   }
 });
